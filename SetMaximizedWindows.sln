@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetActiveWindows", "SetActiveWindows\SetActiveWindows.csproj", "{C1E1FEF7-1EBB-4AB3-AAB2-C5D51AACDB87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetMaximizedWindows", "SetMaximizedWindows\SetMaximizedWindows.csproj", "{C1E1FEF7-1EBB-4AB3-AAB2-C5D51AACDB87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

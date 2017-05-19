@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 
-namespace SetActiveWindows
+namespace SetMaximizedWindows
 {
     class Program
     {
@@ -17,7 +17,7 @@ namespace SetActiveWindows
         [DllImport("user32.dll")]
         private static extern int ShowWindow(IntPtr hWnd, uint Msg);
 
-        private const uint SW_RESTORE = 0x09;
+        private const uint SW_MAXIMIZE = 0x03;
 
         static int Main(string[] args)
         {
@@ -28,11 +28,11 @@ namespace SetActiveWindows
             if (args.Length < 1)  // Warning : Index was out of the bounds of the array
             {
                 Console.Write("Usage:\n");
-                Console.Write("SetActiveWindows.exe PID Flag\n");
+                Console.Write("SetMaximizedWindows.exe PID Flag\n");
                 Console.Write("Flag:\n");
                 Console.Write("\t 0: Short output, no debug\n");
                 Console.Write("\t 1: Full debug\n");
-                Console.Write("Ex: SetActiveWindows.exe 14522 1\n");
+                Console.Write("Ex: SetMaximizedWindows.exe 14522 1\n");
                 return 1;
             }
 
@@ -52,7 +52,7 @@ namespace SetActiveWindows
             iPID = Convert.ToInt32(args[0]);
             TargetedProcess = Process.GetProcessById(iPID);
             SetForegroundWindow(TargetedProcess.MainWindowHandle);
-            ShowWindow(TargetedProcess.MainWindowHandle, SW_RESTORE);
+            ShowWindow(TargetedProcess.MainWindowHandle, SW_MAXIMIZE);
             return 0;
         }
     }
