@@ -23,6 +23,7 @@ namespace SetMaximizedWindows
         {
             int iDebug;
             int iPID;
+            bool BoolSetForegroundWindow;
             Process TargetedProcess;
 
             if (args.Length < 1)  // Warning : Index was out of the bounds of the array
@@ -36,7 +37,7 @@ namespace SetMaximizedWindows
                 return 1;
             }
 
-            if (args.Length < 1)  // Warning : Index was out of the bounds of the array
+            if (args.Length < 2)  // Warning : Index was out of the bounds of the array
             {
                 iDebug = 0;
             }
@@ -50,10 +51,41 @@ namespace SetMaximizedWindows
             }
 
             iPID = Convert.ToInt32(args[0]);
-            TargetedProcess = Process.GetProcessById(iPID);
-            SetForegroundWindow(TargetedProcess.MainWindowHandle);
-            ShowWindow(TargetedProcess.MainWindowHandle, SW_MAXIMIZE);
-            return 0;
+            if (iDebug > 0)
+            {
+                Console.Write("Debug mode\n");
+                Console.Write("PID:" + iPID.ToString() + "\n");
+            }
+
+            if (Process.GetProcesses().Any(x => x.Id == iPID))
+            {
+                TargetedProcess = Process.GetProcessById(iPID);
+            }
+            else
+            {
+                Console.Write("Could not find the PID " + iPID.ToString() + " in current process list.\n");
+                return 2;
+            }
+
+            if (iDebug > 0)
+            {
+                Console.Write("TargetProcess:" + TargetedProcess.ToString() + "\n");
+            }
+            BoolSetForegroundWindow = SetForegroundWindow(TargetedProcess.MainWindowHandle);
+            if (iDebug > 0)
+            {
+                Console.Write("BoolSetForegroundWindow:" + BoolSetForegroundWindow.ToString() + "\n");
+            }
+
+            if (BoolSetForegroundWindow == true)
+            {
+                return (ShowWindow(TargetedProcess.MainWindowHandle, SW_MAXIMIZE));
+            }
+            else
+            {
+                Console.Write("Error could not handle pid " + iPID.ToString() + "\n");
+                return 2;
+            }
         }
     }
 }
